@@ -2,10 +2,10 @@ import NoteCard from './NoteCard.jsx'
 import { useState } from 'react'
 
 function Notes() {
-  // It is standard convention to use lowercase for the state variable
   
 
   const [notes, setNotes] = useState([])
+  const [searchQuery, setSearchQuery] = useState('')
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -40,6 +40,10 @@ function Notes() {
     const updatedNotes = notes.filter((note) => note.id !== noteId)
     setNotes(updatedNotes)
   }
+
+  const filteredNotes = notes.filter((note) =>
+    note.title.toLowerCase().includes(searchQuery.toLowerCase())
+  )
   
   return (
     <div className="grid min-h-screen grid-cols-[420px_1fr]">
@@ -105,7 +109,7 @@ function Notes() {
             </li>
           ))}
         </ul>
-        {notes.length === 0 && (
+        {filteredNotes.length === 0 && (
           <p className="text-lg text-[#949494]">No notes found</p>
         )}
       </section>
