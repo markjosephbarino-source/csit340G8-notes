@@ -3,10 +3,27 @@ import { useState } from 'react'
 
 function Notes() {
   // It is standard convention to use lowercase for the state variable
-  const [notes] = useState([
+  const [notes, setNotes] = useState([
     { id: 1, title: 'Review map and filter', body: 'Redo the TodoMVC steps without looking at the guide.' },
     { id: 2, title: 'Prepare for the quiz', body: 'Practice writing one handler for many inputs.' },
   ])
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    const trimTitle = newNote.title.trim()
+    const trimBody = newNote.body.trim()
+    if(trimTitle === '' || trimBody === '') {
+        return 
+    }
+    const newNoteToWrite = {
+        id: crypto.randomUUID(),
+        title: trimTitle,
+        body: trimBody
+    }
+    setNotes([...notes, newNoteToWrite])
+    setNewNote({ title: "", body: "" })
+
+  }
 
   const [newNote, setNewNote] = useState({ title: '', body: '' })
 
@@ -33,7 +50,7 @@ function Notes() {
           />
         </div>
 
-        <form className="grid gap-3">
+        <form onSubmit={handleSubmit} className="grid gap-3" >
           <p className="text-[13px] font-normal tracking-wide text-[#949494]">NEW NOTE</p>
           <input
             name="title"
