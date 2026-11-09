@@ -7,6 +7,16 @@ function Notes() {
     { id: 1, title: 'Review map and filter', body: 'Redo the TodoMVC steps without looking at the guide.' },
     { id: 2, title: 'Prepare for the quiz', body: 'Practice writing one handler for many inputs.' },
   ])
+
+  const [newNote, setNewNote] = useState({ title: '', body: '' })
+
+  function handleNewNoteChange(e) {
+    const { name, value } = e.target
+    setNewNote({
+      ...newNote,
+      [name]: value
+    })
+  }
   
   return (
     <div className="grid min-h-screen grid-cols-[420px_1fr]">
@@ -27,11 +37,15 @@ function Notes() {
           <p className="text-[13px] font-normal tracking-wide text-[#949494]">NEW NOTE</p>
           <input
             name="title"
+            value={newNote.title}
+            onChange={handleNewNoteChange}
             placeholder="Title"
             className="h-[52px] w-full border border-[#e6e6e6] px-4 text-lg outline-none placeholder:text-black/40 placeholder:italic focus:border-[#cf7d7d]"
           />
           <textarea
             name="body"
+            value={newNote.body}
+            onChange={handleNewNoteChange}
             placeholder="Write your note"
             className="h-[120px] w-full resize-none py-3 border border-[#e6e6e6] px-4 text-lg outline-none placeholder:text-black/40 placeholder:italic focus:border-[#cf7d7d]"
           />
