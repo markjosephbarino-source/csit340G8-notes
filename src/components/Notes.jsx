@@ -23,6 +23,8 @@ function Notes() {
     setNotes([...notes, newNoteToWrite])
     setNewNote({ title: "", body: "" })
 
+    
+
   }
 
   const [newNote, setNewNote] = useState({ title: '', body: '' })
@@ -33,6 +35,11 @@ function Notes() {
       ...newNote,
       [name]: value
     })
+  }
+
+  function handleDelete(noteId) {
+    const updatedNotes = notes.filter((note) => note.id !== noteId)
+    setNotes(updatedNotes)
   }
   
   return (
@@ -90,6 +97,7 @@ function Notes() {
               />
               <button
                 type="button"
+                onClick={() => handleDelete(note.id)}
                 className="absolute top-4 right-5 cursor-pointer text-[26px] leading-none text-[#949494] hover:text-[#c18585]"
               >
                 ×
